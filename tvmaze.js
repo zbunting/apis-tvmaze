@@ -19,8 +19,6 @@ async function getShowsByTerm(term) {
     fetch(`${TVMAZE_BASE_URL}${TVMAZE_SHOWS}${searchParams}`);
   const showData = await response.json();
 
-  console.log(showData[0].show);
-
   return 
 
 
