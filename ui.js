@@ -62,17 +62,40 @@ async function getEpisodesOfShow(id) {
   const dataForEpisodes = await response.json();
 
   const episodes = dataForEpisodes
-  .map(({id, name, season, number}) => {id, name, season, number});
+    .map(({ id, name, season, number }) => { id, name, season, number; });
 
+  console.log("episodes=", episodes);
   return episodes;
 }
 
-/** Write a clear docstring for this function... */
+/** Take an array of episodes info and append the info to the DOM.
+ *  Reveal episode area.
+*/
 
-// function displayEpisodes(episodes) { }
+async function displayEpisodes(episodes) {
+
+  for (const episode of episodes) {
+    const $episodeInfo = document.createElement("li");
+    $episodeInfo.innerText =
+      `${episode.name} (season ${episode.season}, number ${episode.number})`;
+
+    const $episodesList = document.querySelector("#episodesList");
+    $episodesList.append($episodeInfo);
+  }
+
+  $episodesArea.style.display = "block";
+
+}
 
 // add other functions that will be useful / match our structure & design
 // and udpate start as necessary
+
+/** TODO:  */
+async function getEpisodesAndDisplay(showId) {
+
+}
+
+
 
 
 /** Attach event listeners to show search form and show list  */
