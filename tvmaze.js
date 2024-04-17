@@ -5,8 +5,22 @@
  *    (if no image URL given by API, put in a default image URL)
  */
 
-async function getShowsByTerm( /* term */) {
+//debugger;
+
+const TVMAZE_BASE_URL = "https://api.tvmaze.com";
+const TVMAZE_SHOWS = "/search/shows?";
+const TVMAZE_EPISODES = "http://api.tvmaze.com/shows/";
+
+async function getShowsByTerm(term) {
   // ADD: Remove placeholder & make request to TVMaze search shows API.
+  const searchParams = new URLSearchParams({ q: term });
+
+  const response = await
+    fetch(`${TVMAZE_BASE_URL}${TVMAZE_SHOWS}${searchParams}`);
+  const showData = await response.json();
+
+  console.log(showData);
+
 
   return [
     {
@@ -23,7 +37,7 @@ async function getShowsByTerm( /* term */) {
            quickly realises she can only begin to crack the murders and bring
            the culprit to justice with her former friends.</p>`,
       image:
-          "http://static.tvmaze.com/uploads/images/medium_portrait/147/369403.jpg"
+        "http://static.tvmaze.com/uploads/images/medium_portrait/147/369403.jpg"
     }
   ]
 }
