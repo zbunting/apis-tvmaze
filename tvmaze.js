@@ -19,14 +19,14 @@ async function getShowsByTerm(term) {
     fetch(`${TVMAZE_BASE_URL}${TVMAZE_SHOWS}${searchParams}`);
   const showData = await response.json();
 
-  console.log(showData);
+  console.log(showData[0].show);
+
+  return 
 
 
   // Loop through the array of episode objects
   // For each, pull out only the id, name, summary and image key-value pairs
   // If image value is null, put in a default image URL
-
-  return showData.map(episode => ({ id: episode.id, name: episode.name, summary: episode.summary, image: episode.image }));
 
   /*
     return [
