@@ -1,4 +1,4 @@
-import { getShowsByTerm } from "./tvmaze.js";
+import { getShowsByTerm, TVMAZE_BASE_URL } from "./tvmaze.js";
 
 const $showsList = document.querySelector("#showsList");
 const $episodesArea = document.querySelector("#episodesArea");
@@ -18,12 +18,11 @@ function displayShows(shows) {
     $show.dataset.showId = show.id;
     $show.className = "Show col-md-12 col-lg-6 mb-4";
 
-    // TODO: make alt text for img dynamic
     $show.innerHTML = `
          <div class="media">
            <img
               src=${show.image}
-              alt="Bletchly Circle San Francisco"
+              alt=${show.name}
               class="w-25 me-3">
            <div class="media-body">
              <h5 class="text-primary">${show.name}</h5>
@@ -57,7 +56,16 @@ async function searchShowsAndDisplay() {
  *      { id, name, season, number }
  */
 
-// async function getEpisodesOfShow(id) { }
+async function getEpisodesOfShow(id) {
+
+  const response = await fetch(`${TVMAZE_BASE_URL}/shows/${id}/episodes`);
+  const dataForEpisodes = await response.json();
+
+  const episodes = dataForEpisodes
+  .map(({id, name, season, number}) => {id, name, season, number});
+
+  return episodes;
+}
 
 /** Write a clear docstring for this function... */
 
