@@ -18,6 +18,7 @@ function displayShows(shows) {
     $show.dataset.showId = show.id;
     $show.className = "Show col-md-12 col-lg-6 mb-4";
 
+    // TODO: make alt text for img dynamic
     $show.innerHTML = `
          <div class="media">
            <img
