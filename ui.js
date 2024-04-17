@@ -45,6 +45,7 @@ function displayShows(shows) {
 async function searchShowsAndDisplay() {
   const term = document.querySelector("#searchForm-term").value;
   const shows = await getShowsByTerm(term);
+  console.log("shows=", shows);
 
   $episodesArea.style.display = "none";
   displayShows(shows);
@@ -67,7 +68,7 @@ async function searchShowsAndDisplay() {
 
 /** Attach event listeners to show search form and show list  */
 
-function start () {
+function start() {
   $searchForm.addEventListener("submit", async function handleSearchForm(evt) {
     evt.preventDefault();
     await searchShowsAndDisplay();
