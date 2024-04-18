@@ -74,11 +74,12 @@ async function getEpisodesOfShow(id) {
  *  Reveal episode area.
 */
 
-async function displayEpisodes(episodes) {
+function displayEpisodes(episodes) {
 
   for (const episode of episodes) {
     const $episodeInfo = document.createElement("li");
-    $episodeInfo.innerText = await
+    //TODO: set innerHTML to be an empty string
+    $episodeInfo.innerText =
       `${episode.name} (season ${episode.season}, number ${episode.number})`;
 
     const $episodesList = document.querySelector("#episodesList");
@@ -96,7 +97,8 @@ async function displayEpisodes(episodes) {
 async function getEpisodesAndDisplay(showId) {
 
   const episodes = await getEpisodesOfShow(showId);
-  await displayEpisodes(episodes);
+  console.log(episodes);
+  displayEpisodes(episodes);
 
 }
 
@@ -108,16 +110,17 @@ async function handleClickOnEpisodesButton(evt) {
   if (!evt.target.matches('.Show-getEpisodes')) return;
 
   console.log("Episodes button was clicked!");
-  const showID = await getShowID(evt.target);
+  const showID = getShowID(evt.target);
   await getEpisodesAndDisplay(showID);
 
 }
 
+//TODO: initialize inside start method (just be consistent)
 $showsList.addEventListener("click", handleClickOnEpisodesButton);
 
 /** Get the ID of a show  */
 
-async function getShowID(button) {
+function getShowID(button) {
   return button.dataset.id;
 }
 
