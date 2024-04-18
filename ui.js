@@ -52,7 +52,7 @@ async function searchShowsAndDisplay() {
   displayShows(shows);
 }
 
-
+//TODO: keep API materials together? Could put this function in tvmaze.js
 /** Given a show ID, get from API and return (promise) array of episodes:
  *      { id, name, season, number }
  */
@@ -61,9 +61,10 @@ async function getEpisodesOfShow(id) {
 
   const response = await fetch(`${TVMAZE_BASE_URL}/shows/${id}/episodes`);
   const dataForEpisodes = await response.json();
+  console.log("dataForEpisodes=", dataForEpisodes);
 
   const episodes = dataForEpisodes
-    .map(({ id, name, season, number }) => { id, name, season, number; });
+    .map(({ id, name, season, number }) => ({ id, name, season, number }));
 
   console.log("episodes=", episodes);
   return episodes;
@@ -77,7 +78,7 @@ async function displayEpisodes(episodes) {
 
   for (const episode of episodes) {
     const $episodeInfo = document.createElement("li");
-    $episodeInfo.innerText =
+    $episodeInfo.innerText = await
       `${episode.name} (season ${episode.season}, number ${episode.number})`;
 
     const $episodesList = document.querySelector("#episodesList");
@@ -94,12 +95,12 @@ async function displayEpisodes(episodes) {
 
 async function getEpisodesAndDisplay(showId) {
 
-  const episodes = getEpisodesOfShow(showId);
-  displayEpisodes(episodes);
+  const episodes = await getEpisodesOfShow(showId);
+  await displayEpisodes(episodes);
 
 }
 
-/** TODO: */
+/** Handle click on a show episodes button  */
 
 async function handleClickOnEpisodesButton(evt) {
 
@@ -107,7 +108,7 @@ async function handleClickOnEpisodesButton(evt) {
   if (!evt.target.matches('.Show-getEpisodes')) return;
 
   console.log("Episodes button was clicked!");
-  const showID = getShowID(evt.target);
+  const showID = await getShowID(evt.target);
   await getEpisodesAndDisplay(showID);
 
 }
