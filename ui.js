@@ -88,14 +88,13 @@ async function displayEpisodes(episodes) {
 
 }
 
-// add other functions that will be useful / match our structure & design
-// and udpate start as necessary
-
-/** TODO:   */
+/**   Get information on a show's episodes from API.
+ *    Display details for episodes in the DOM.
+ */
 
 async function getEpisodesAndDisplay(showId) {
 
-  const episodes = getEpisodesOfShow(showID);
+  const episodes = getEpisodesOfShow(showId);
   displayEpisodes(episodes);
 
 }
@@ -104,22 +103,22 @@ async function getEpisodesAndDisplay(showId) {
 
 async function handleClickOnEpisodesButton(evt) {
 
+  console.log("evt.target=", evt.target);
   if (!evt.target.matches('.Show-getEpisodes')) return;
 
+  console.log("Episodes button was clicked!");
   const showID = getShowID(evt.target);
-  getEpisodesAndDisplay(showID);
+  await getEpisodesAndDisplay(showID);
 
 }
 
+$showsList.addEventListener("click", handleClickOnEpisodesButton);
 
 /** Get the ID of a show  */
 
 async function getShowID(button) {
   return button.dataset.id;
 }
-
-
-
 
 /** Attach event listeners to show search form and show list  */
 
