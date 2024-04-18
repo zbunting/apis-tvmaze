@@ -27,7 +27,8 @@ function displayShows(shows) {
            <div class="media-body">
              <h5 class="text-primary">${show.name}</h5>
              <div><small>${show.summary}</small></div>
-             <button class="btn btn-outline-light btn-sm Show-getEpisodes">
+             <button class="btn btn-outline-light btn-sm Show-getEpisodes"
+             data-id=${show.id}>
                Episodes
              </button>
            </div>
@@ -90,9 +91,31 @@ async function displayEpisodes(episodes) {
 // add other functions that will be useful / match our structure & design
 // and udpate start as necessary
 
-/** TODO:  */
+/** TODO:   */
+
 async function getEpisodesAndDisplay(showId) {
 
+  const episodes = getEpisodesOfShow(showID);
+  displayEpisodes(episodes);
+
+}
+
+/** TODO: */
+
+async function handleClickOnEpisodesButton(evt) {
+
+  if (!evt.target.matches('.Show-getEpisodes')) return;
+
+  const showID = getShowID(evt.target);
+  getEpisodesAndDisplay(showID);
+
+}
+
+
+/** Get the ID of a show  */
+
+async function getShowID(button) {
+  return button.dataset.id;
 }
 
 
